@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_table
 from styles import upload_button_style, app_title_style
 
-app_title_widget = html.Div(children=[html.H1('Data Visualizer')],
+app_title_widget = html.Div(children=[html.H1('Data Visualizer',className='jumbotron')],
                      style=app_title_style)
 
 upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and drop file here or",

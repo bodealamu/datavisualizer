@@ -10,11 +10,10 @@ import pandas as pd
 from widgets import (app_title_widget, upload, visualization_library_dropdown,
                      chart_type_dropdown,data_store, data_table)
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
-# app = dash.Dash(__name__)
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
@@ -76,7 +75,9 @@ def view_data(json_data):
 app.layout = html.Div(children=[app_title_widget,
                                 upload,
                                 html.Div(children=[visualization_library_dropdown,chart_type_dropdown]),
-                                data_store, data_table])
+                                data_store, data_table],
+
+                      )
 
 
 if __name__ == '__main__':
