@@ -3,12 +3,14 @@ import dash_core_components as dcc
 import base64
 import dash_html_components as html
 import dash
+import datetime
 import dash_table
 import io
 from styles import upload_button_style, app_title_style
 import pandas as pd
 from widgets import (app_title_widget, upload, visualization_library_dropdown,
-                     chart_type_dropdown,data_store, data_table)
+                     chart_type_dropdown,data_store, data_table, label_for_dropdown,
+                     upload_status)
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
@@ -34,25 +36,34 @@ def create_dropdown(value):
 
 @app.callback(
     Output(component_id='data-store', component_property='data'),
+    Output(component_id='upload-status', component_property='children'),
     Input(component_id='upload-widget',component_property='contents'),
     Input(component_id='upload-widget', component_property='filename'),
     Input(component_id='upload-widget', component_property='last_modified')
 )
 def upload_data(contents, filename,last_modified):
-    content_type, content_string = contents.split(',')
-    decoded = base64.b64decode(content_string)
-    print(content_type)
-    # print(content_string)
-    # print(decoded)
-    if 'csv' in filename:
-        df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
-        print(df.head())
-    elif 'xlsx' in filename:
-        pass
-    else:
-        return None
+    df = pd.DataFrame([])
+    success_message =''
 
-    return df.to_json( orient='split')
+    try:
+        content_type, content_string = contents.split(',')
+        decoded = base64.b64decode(content_string)
+        print(content_type)
+        timestamp = datetime.datetime.fromtimestamp(last_modified)
+        print(timestamp.strftime('%Y-%m-%d %H:%M:%S'))
+        if 'csv' in filename:
+            df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
+            print(df.head())
+        elif 'xlsx' in filename:
+            pass
+        else:
+            return None
+
+        success_message = 'file with name ' +str(filename)
+    except Exception as e:
+        print(e)
+
+    return df.to_json( orient='split'),success_message
 
 
 @app.callback(
@@ -73,8 +84,14 @@ def view_data(json_data):
 
 
 app.layout = html.Div(children=[app_title_widget,
-                                upload,
-                                html.Div(children=[visualization_library_dropdown,chart_type_dropdown]),
+                                dbc.Container([upload,
+                                               upload_status]),
+                                label_for_dropdown,
+                                dbc.Row([
+                                    dbc.Col(visualization_library_dropdown),
+                                    dbc.Col(chart_type_dropdown)
+                                ]),
+
                                 data_store, data_table],
 
                       )
