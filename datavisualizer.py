@@ -9,12 +9,13 @@ import io
 from styles import upload_button_style, app_title_style
 import pandas as pd
 from widgets import (app_title_widget, upload, visualization_library_dropdown,
-                     chart_type_dropdown,data_store, data_table, label_for_dropdown,
+                     chart_type_dropdown,data_store, data_table,
+                     label_for_visualization_library,label_for_dropdown,
                      upload_status)
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(external_stylesheets=[dbc.themes.LITERA])
 
 server = app.server
 
@@ -74,6 +75,8 @@ def upload_data(contents, filename,last_modified):
 def view_data(json_data):
     df = pd.read_json(json_data, orient='split')
 
+    df = df.head(5)
+
     column_dict = [{'name':col, 'id':col} for col in df.columns]
     print('json loaded')
     print(column_dict)
@@ -83,17 +86,25 @@ def view_data(json_data):
     return  column_dict,data
 
 
+# dbc.Col(label_for_dropdown, width=2),
+
 app.layout = html.Div(children=[app_title_widget,
+                                data_store,
+                                label_for_visualization_library,
+                                dbc.Row(
+                                    [
+                                        dbc.Col(visualization_library_dropdown),
+                                        dbc.Col(chart_type_dropdown)
+                                    ]
+                                ),
+
+
                                 dbc.Container([upload,
                                                upload_status]),
-                                label_for_dropdown,
-                                dbc.Row([
-                                    dbc.Col(visualization_library_dropdown),
-                                    dbc.Col(chart_type_dropdown)
-                                ]),
+                                dbc.Container(data_table),
 
-                                data_store, data_table],
 
+                                ],
                       )
 
 

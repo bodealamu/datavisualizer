@@ -16,13 +16,15 @@ visualization_library_dropdown = dcc.Dropdown(id="visualization-library-dropdown
                                               options=[{'label':'plotly','value':'plotly'}],
                                               value='plotly')
 
-label_for_dropdown = html.Label('Select the plotting libraryu and the chart type below')
+label_for_dropdown = html.Label('Select the plotting library')
 
-chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',)
+chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',placeholder="Data Visualization Chart type")
 
 data_store = dcc.Store(id='data-store', storage_type='memory')
 
 data_table = dash_table.DataTable(id='data-table')
 
 upload_status = html.Div(id='upload-status')
+
+label_for_visualization_library = html.Label("Select visualization library and Chart type")
 
