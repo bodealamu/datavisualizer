@@ -142,9 +142,6 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis):
         return plot
 
 
-
-
-
 app.layout = html.Div(children=[app_title_widget,
                                 data_store,
                                 label_for_visualization_library,
