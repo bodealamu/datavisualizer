@@ -49,7 +49,7 @@ def create_dropdown(value):
 )
 def upload_data(contents, filename,last_modified):
     df = pd.DataFrame([])
-    success_message =''
+    success_message = str('')
 
     try:
         content_type, content_string = contents.split(',')
@@ -65,7 +65,7 @@ def upload_data(contents, filename,last_modified):
         else:
             return None
 
-        success_message = 'file with name ' +str(filename)
+        success_message = 'file with name ' +str(filename) + " uploaded."
     except Exception as e:
         print(e)
 
@@ -108,15 +108,15 @@ def create_graph_controls_card(visualization_library, chart_type, data):
     xaxis = create_formgroup(label='X axis', dropdown_id='x-axis', placeholder_text='X axis', options=column_list)
     yaxis = create_formgroup(label='Y axis', dropdown_id='y-axis', placeholder_text='Y axis', options=column_list)
     color = create_formgroup(label='Color', dropdown_id='color', placeholder_text='Select color', options=column_list)
-    # xaxis = create_formgroup(label='X axis', dropdown_id='x-axis', placeholder_text='X axis', options=column_list)
+    size = create_formgroup(label='Size', dropdown_id='size', placeholder_text='Size', options=column_list)
 
     print(xaxis.children[1])
 
     if visualization_library=='plotly':
         if chart_type=='Scatterplot':
-            if data is not None:
+            # if data is not None:
 
-                return [xaxis, yaxis, color]
+            return [xaxis, yaxis, color, size]
 
 
 
@@ -126,9 +126,11 @@ def create_graph_controls_card(visualization_library, chart_type, data):
     Input(component_id='data-store', component_property='data'),
     Input(component_id="visualization-library-dropdown", component_property='value'),
     Input(component_id='x-axis', component_property='value'),
-    Input(component_id='y-axis', component_property='value')
+    Input(component_id='y-axis', component_property='value'),
+    Input(component_id='color', component_property='value'),
+    Input(component_id='size', component_property='value')
 )
-def create_scatterplot( json_data, visualization_library, xaxis, yaxis):
+def create_scatterplot( json_data, visualization_library, xaxis, yaxis, color, size):
     print(json_data)
     print(xaxis)
     df = pd.read_json(json_data, orient='split')
@@ -137,7 +139,11 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis):
     if visualization_library=='plotly':
         if xaxis:
 
-            plot = px.scatter(data_frame=df,x=xaxis,y=yaxis)
+            plot = px.scatter(data_frame=df,
+                              x=xaxis,
+                              y=yaxis,
+                              color=color,
+                              size=size)
 
         return plot
 
