@@ -7,6 +7,7 @@ import datetime
 import dash_table
 import io
 from styles import upload_button_style, app_title_style
+from graph_controls import (scatter_plot_controls)
 import pandas as pd
 from widgets import (app_title_widget, upload, visualization_library_dropdown,
                      chart_type_dropdown,data_store, data_table,
@@ -86,6 +87,19 @@ def view_data(json_data):
     return  column_dict,data
 
 
+@app.callback(
+    Output(component_id='graph-controls-card', component_property='children'),
+    Input(component_id="visualization-library-dropdown", component_property='value'),
+    Input(component_id='chart-type-dropdown', component_property='value'),
+    Input(component_id='upload-widget', component_property='contents')
+)
+def create_graph_controls_card(visualization_library, chart_type, data):
+    if visualization_library=='plotly':
+        if chart_type=='Scatterplot':
+            if data is not None:
+                return scatter_plot_controls
+
+
 # dbc.Col(label_for_dropdown, width=2),
 
 app.layout = html.Div(children=[app_title_widget,
@@ -102,6 +116,13 @@ app.layout = html.Div(children=[app_title_widget,
                                 dbc.Container([upload,
                                                upload_status]),
                                 dbc.Container(data_table),
+                                html.Hr(),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(html.Div(id='graph-controls-card'),width=3),
+                                        dbc.Col(html.Div(), width=8)
+                                    ]
+                                )
 
 
                                 ],
