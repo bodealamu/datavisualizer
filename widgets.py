@@ -18,7 +18,9 @@ visualization_library_dropdown = dcc.Dropdown(id="visualization-library-dropdown
 
 label_for_dropdown = html.Label('Select the plotting library')
 
-chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',placeholder="Data Visualization Chart type")
+chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',
+                                   placeholder="Data Visualization Chart type",
+                                   value='Scatterplot')
 
 data_store = dcc.Store(id='data-store', storage_type='memory')
 

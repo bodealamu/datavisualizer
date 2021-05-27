@@ -2,26 +2,19 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 
 
-scatter_plot_controls = dbc.Card(body=True,
-                                 children=[
-                                     dbc.FormGroup(
-                                         [
-                                             dbc.Label('X axis'),
-                                             dcc.Dropdown(
-                                                 id='scatter-dropdown-xaxis',
-                                                 placeholder="Select columns for X axis",
+def create_dropdown(dropdown_id, placeholder_text, options):
+    dropdown = dcc.Dropdown(id=dropdown_id,
+                         placeholder=placeholder_text,
+                            options=options
+                         )
+    return dropdown
 
-                                             )
 
-                                         ]
-                                     ),
-                                     dbc.FormGroup(
-                                         [
-                                             dbc.Label('Y axis'),
-                                             dcc.Dropdown(
-                                                 id='scatter-dropdown-yaxis',
-                                                 placeholder='Select column for Y axis'
-                                             )
-                                         ]
-                                     )
-                                 ])
+def create_formgroup(label,dropdown_id, placeholder_text, options):
+    formgroup = dbc.FormGroup([
+        dbc.Label(label),
+        create_dropdown(dropdown_id, placeholder_text, options)
+    ])
+
+    return formgroup
+
