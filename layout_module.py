@@ -111,7 +111,17 @@ main_layout = html.Div(children=[app_title_widget,
                                                                                                         options=[{'label':'True', 'value':'True'},
                                                                                                                 {'label':'False', 'value':'False'}],
                                                                                                         id='logy',
-                                                                                                    )]))
+                                                                                                    )])),
+                                                                   dbc.FormGroup(html.Div(id='facetrow-html',
+                                                                                          children=[dbc.Label('Facet row (Optional)'),
+                                                                                                    dcc.Dropdown(
+                                                                                                        id='facetrow',
+                                                                                                        placeholder='Facet row', )])),
+                                                                   dbc.FormGroup(html.Div(id='facetcolumn-html',
+                                                                                          children=[dbc.Label('Facet Column (Optional)'),
+                                                                                                    dcc.Dropdown(
+                                                                                                        id='facetcolumn',
+                                                                                                        placeholder='Facet column', )])),
                                                                    ]
                                                          ),
                                                 width=3),
