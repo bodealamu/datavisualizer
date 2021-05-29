@@ -4,7 +4,24 @@ import dash_table
 from styles import upload_button_style, app_title_style
 import dash_bootstrap_components as dbc
 
-app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Open Source Data Visualizer',)],
+
+def create_dropdown(dropdown_id, placeholder_text, options, value=None):
+    dropdown = dcc.Dropdown(id=dropdown_id,
+                            placeholder=placeholder_text,
+                            options=options,
+                            value=value
+                         )
+    return dropdown
+
+
+def create_input_component(input_id, type_of_input, placeholder, debounce=False):
+    return dcc.Input(id=input_id,
+                     type=type_of_input,
+                     placeholder=placeholder,
+                     debounce=debounce)
+
+
+app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('OpenCharts',)],
                      style=app_title_style))
 
 upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and drop file here or",
@@ -12,9 +29,10 @@ upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and dro
                                       style=upload_button_style,
                                       ))
 
-visualization_library_dropdown = dcc.Dropdown(id="visualization-library-dropdown",
-                                              options=[{'label':'plotly','value':'plotly'}],
-                                              value='plotly')
+visualization_library_dropdown = create_dropdown(dropdown_id="visualization-library-dropdown",
+                                                 options=[{'label':'plotly','value':'plotly'}],
+                                                 value='plotly',
+                                                 placeholder_text='Select Visualization Library of your choice')
 
 label_for_dropdown = html.Label('Select the plotting library')
 
