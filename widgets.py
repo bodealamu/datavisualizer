@@ -5,7 +5,7 @@ from styles import upload_button_style, app_title_style
 import dash_bootstrap_components as dbc
 
 
-def create_dropdown(dropdown_id, placeholder_text, options, value=None):
+def create_dropdown(dropdown_id, placeholder_text, options=None, value=None):
     dropdown = dcc.Dropdown(id=dropdown_id,
                             placeholder=placeholder_text,
                             options=options,

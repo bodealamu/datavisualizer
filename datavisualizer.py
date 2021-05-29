@@ -16,6 +16,7 @@ from widgets import (app_title_widget, upload, visualization_library_dropdown,
                      upload_status)
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+from layout_module import main_layout
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True)
@@ -90,55 +91,71 @@ def view_data(json_data):
 
 
 @app.callback(
-    Output(component_id='graph-controls-card', component_property='children'),
-    Input(component_id="visualization-library-dropdown", component_property='value'),
-    Input(component_id='chart-type-dropdown', component_property='value'),
+    Output(component_id='x-axis', component_property='options'),
+    Output(component_id='y-axis', component_property='options'),
+    Output(component_id='size', component_property='options'),
+    Output(component_id='color', component_property='options'),
+    Output(component_id='text', component_property='options'),
     Input(component_id='data-table', component_property='data')
 )
-def create_graph_controls_card(visualization_library, chart_type, data):
-    print('callback hell')
-    df = pd.DataFrame(data)
-    print(df.shape)
-    column_list = [{'label': col, 'value':col} for col in df.columns]
-    print(column_list)
-    print('here agaian')
+def generate_options(data_dict):
+    df = pd.DataFrame(data_dict)
+    column_list = [{'label': col, 'value': col} for col in df.columns]
 
-    xaxis = create_formgroup(label='X axis', component_id='x-axis', placeholder_text='Select column to plot on X axis',
-                             drop_down_options=column_list)
-    yaxis = create_formgroup(label='Y axis', component_id='y-axis', placeholder_text='Select column to plot on Y axis',
-                             drop_down_options=column_list)
-    color = create_formgroup(label='Color', component_id='color', placeholder_text='Select column to use for color',
-                             drop_down_options=column_list)
-    size = create_formgroup(label='Size', component_id='size', placeholder_text='Size', drop_down_options=column_list)
-    symbol = create_formgroup(label='Symbol (Optional)', component_id='symbol', placeholder_text='Symbol',
-                              drop_down_options=column_list)
-    hover_name = create_formgroup(label='Hover text (Optional)', component_id='hover-name', placeholder_text='Hover text',
-                                  drop_down_options=column_list)
-    text = create_formgroup(label='Text (Optional)', component_id='text', placeholder_text='Select column for text',
-                            drop_down_options=column_list)
-    title = create_formgroup(label='Title of Chart (Optional)', component_id='title', placeholder_text='Title of Chart',
-                             widget_type='text_input')
-    number_bins = create_formgroup(label='Number of Bins',
-                                   component_id='bins',
-                                   placeholder_text='Number of bins',
-                                   widget_type='number_input')
+    return column_list,column_list,column_list,column_list, column_list
 
-    print('time to figure out')
 
-    print(xaxis.children)
-
-    if visualization_library=='plotly':
-        if chart_type == 'Scatterplot':
-            # if data is not None:
-
-            return [xaxis, yaxis, color, size,title, symbol, hover_name, text]
-
-        if chart_type == 'Histogram':
-            return [xaxis, yaxis, color, number_bins]
+#
+# @app.callback(
+#     Output(component_id='graph-controls-card', component_property='children'),
+#     Input(component_id="visualization-library-dropdown", component_property='value'),
+#     Input(component_id='chart-type-dropdown', component_property='value'),
+#     Input(component_id='data-table', component_property='data')
+# )
+# def create_graph_controls_card(visualization_library, chart_type, data):
+#     print('callback hell')
+#     df = pd.DataFrame(data)
+#     print(df.shape)
+#     column_list = [{'label': col, 'value':col} for col in df.columns]
+#     print(column_list)
+#     print('here agaian')
+#
+#     xaxis = create_formgroup(label='X axis', component_id='x-axis', placeholder_text='Select column to plot on X axis',
+#                              drop_down_options=column_list)
+#     yaxis = create_formgroup(label='Y axis', component_id='y-axis', placeholder_text='Select column to plot on Y axis',
+#                              drop_down_options=column_list)
+#     color = create_formgroup(label='Color', component_id='color', placeholder_text='Select column to use for color',
+#                              drop_down_options=column_list)
+#     size = create_formgroup(label='Size', component_id='size', placeholder_text='Size', drop_down_options=column_list)
+#     symbol = create_formgroup(label='Symbol (Optional)', component_id='symbol', placeholder_text='Symbol',
+#                               drop_down_options=column_list)
+#     hover_name = create_formgroup(label='Hover text (Optional)', component_id='hover-name', placeholder_text='Hover text',
+#                                   drop_down_options=column_list)
+#     text = create_formgroup(label='Text (Optional)', component_id='text', placeholder_text='Select column for text',
+#                             drop_down_options=column_list)
+#     title = create_formgroup(label='Title of Chart (Optional)', component_id='title', placeholder_text='Title of Chart',
+#                              widget_type='text_input')
+#     number_bins = create_formgroup(label='Number of Bins',
+#                                    component_id='bins',
+#                                    placeholder_text='Number of bins',
+#                                    widget_type='number_input')
+#
+#     print('time to figure out')
+#
+#     print(xaxis.children)
+#
+#     if visualization_library=='plotly':
+#         if chart_type == 'Scatterplot':
+#             # if data is not None:
+#
+#             return [xaxis, yaxis, color, size,title, symbol, hover_name, text]
+#
+#         if chart_type == 'Histogram':
+#             return [xaxis, yaxis, color, number_bins]
 
 
 @app.callback(
-    Output(component_id='graph-scatter', component_property='figure'),
+    Output(component_id='graph-area', component_property='figure'),
     Input(component_id='data-store', component_property='data'),
     Input(component_id="visualization-library-dropdown", component_property='value'),
     Input(component_id='x-axis', component_property='value'),
@@ -146,7 +163,7 @@ def create_graph_controls_card(visualization_library, chart_type, data):
     Input(component_id='color', component_property='value'),
     Input(component_id='size', component_property='value'),
     Input(component_id='symbol', component_property='value'),
-    Input(component_id='hover-name', component_property='value'),
+    Input(component_id='hover-text', component_property='value'),
     Input(component_id='text', component_property='value'),
     Input(component_id='title', component_property='value'),
 
@@ -171,6 +188,8 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
                               hover_name=hover_name,
                               text=text, title=title)
 
+            print(plot)
+
         # if chart_type == 'Histogram':
         #     plot = px.histogram(data_frame=df,x=xaxis,Input(component_id='bins', component_property='value')
         #                         y=yaxis, nbins=bins
@@ -179,16 +198,21 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
         return plot
 
 
-@app.callback(
-    Output(component_id='graph-area', component_property='figure'),
-    Input(component_id='graph-scatter', component_property='figure'),
-)
-def switch_graphs(scatter_graph):
-    ctx = dash.callback_context
-
-    print('callback context')
-
-    print(ctx)
+# @app.callback(
+#     Output(component_id='graph-area', component_property='figure'),
+#     Input(component_id='graph-scatter', component_property='figure'),
+# )
+# def switch_graphs(scatter_graph):
+#     print(scatter_graph)
+#     ctx = dash.callback_context
+#
+#     print('callback context')
+#
+#     print(ctx.triggered)
+#
+#     plot = scatter_graph
+#
+#     return plot
 
 
 
@@ -236,31 +260,34 @@ def switch_graphs(scatter_graph):
 #         return plot
 
 
-app.layout = html.Div(children=[app_title_widget,
-                                data_store,
-                                label_for_visualization_library,
-                                dbc.Row(
-                                    [
-                                        dbc.Col(visualization_library_dropdown),
-                                        dbc.Col(chart_type_dropdown)
-                                    ]
-                                ),
-                                dbc.Container([upload,
-                                               upload_status]),
-                                dbc.Container(data_table),
-                                html.Hr(),
-                                dbc.Row(
-                                    [
-                                        dbc.Col(dbc.Card(body=True,
-                                                         id='graph-controls-card'
-                                                         ),
-                                                width=3),
-                                        dbc.Col(dcc.Graph(id='graph-area'), width=8),
-                                    ]
-                                ),
-                                html.Div(dcc.Graph(id='graph-scatter'),style={'display': 'none'} )
-                                ],
-                      )
+# app.layout = html.Div(children=[app_title_widget,
+#                                 data_store,
+#                                 label_for_visualization_library,
+#                                 dbc.Row(
+#                                     [
+#                                         dbc.Col(visualization_library_dropdown),
+#                                         dbc.Col(chart_type_dropdown)
+#                                     ]
+#                                 ),
+#                                 dbc.Container([upload,
+#                                                upload_status]),
+#                                 dbc.Container(data_table),
+#                                 html.Hr(),
+#                                 dbc.Row(
+#                                     [
+#                                         dbc.Col(dbc.Card(body=True,
+#                                                          id='graph-controls-card'
+#                                                          ),
+#                                                 width=3),
+#                                         dbc.Col(dcc.Graph(id='graph-area'), width=8),
+#                                     ]
+#                                 ),
+#                                 # html.Div(dcc.Graph(id='graph-scatter'),style={'display': 'none'} )
+#                                 ],
+#                       )
+
+
+app.layout = main_layout
 
 
 if __name__ == '__main__':
