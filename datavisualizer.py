@@ -166,10 +166,12 @@ def generate_options(data_dict):
     Input(component_id='hover-text', component_property='value'),
     Input(component_id='text', component_property='value'),
     Input(component_id='title', component_property='value'),
+    Input(component_id='chart-type-dropdown', component_property='value'),
+    Input(component_id='bins', component_property='value'),
 
 )
 def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
-                        color, size, symbol, hover_name,text, title):
+                        color, size, symbol, hover_name,text, title, chart_type, bins):
     print('in graph callback')
     print(json_data)
     print(xaxis)
@@ -177,7 +179,7 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
     plot = px.scatter()
     print(df.shape)
     if visualization_library=='plotly':
-        if xaxis:
+        if chart_type=='Scatterplot':
 
             plot = px.scatter(data_frame=df,
                               x=xaxis,
@@ -190,10 +192,10 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
 
             print(plot)
 
-        # if chart_type == 'Histogram':
-        #     plot = px.histogram(data_frame=df,x=xaxis,Input(component_id='bins', component_property='value')
-        #                         y=yaxis, nbins=bins
-        #                         )
+        if chart_type == 'Histogram':
+            plot = px.histogram(data_frame=df,x=xaxis,
+                                y=yaxis, nbins=bins
+                                )
 
         return plot
 
