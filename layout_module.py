@@ -104,6 +104,7 @@ main_layout = html.Div(children=[app_title_widget,
                                                                                                         options=[{'label':'True', 'value':"True"},
                                                                                                                 {'label':'False', 'value':'False'}],
                                                                                                         id='logx',
+                                                                                                        value="False"
                                                                                                          )])),
                                                                    dbc.FormGroup(html.Div(id='logy-html',
                                                                                           children=[dbc.Label('Log Y (Optional)'),
@@ -111,6 +112,7 @@ main_layout = html.Div(children=[app_title_widget,
                                                                                                         options=[{'label':'True', 'value':'True'},
                                                                                                                 {'label':'False', 'value':'False'}],
                                                                                                         id='logy',
+                                                                                                        value='False'
                                                                                                     )])),
                                                                    dbc.FormGroup(html.Div(id='facetrow-html',
                                                                                           children=[dbc.Label('Facet row (Optional)'),
@@ -125,7 +127,7 @@ main_layout = html.Div(children=[app_title_widget,
                                                                    ]
                                                          ),
                                                 width=3),
-                                        dbc.Col(dcc.Graph(id='graph-area'), width=8),
+                                        dbc.Col(dbc.Card(dcc.Graph(id='graph-area'), body=True), width=8),
                                     ]
                                 ),
                                 # html.Div(dcc.Graph(id='graph-scatter'),style={'display': 'none'} )

@@ -34,7 +34,12 @@ def create_dropdown(value):
     options = list()
     if value=='plotly':
         options = [{'label':'Scatterplot', 'value':'Scatterplot'},
-                   {'label':'Histogram', 'value':'Histogram'}]
+                   {'label':'Bar Charts', 'value':'Bar Charts'},
+                   {'label':'Boxplot', 'value':'Boxplot'},
+                   {'label':'Density Contour Charts', 'value':'Density Contour Charts'},
+                   {'label':'Density Heatmap', 'value':'Density Heatmap'},
+                   {'label':'Histogram', 'value':'Histogram'},
+                   {'label':'Violinplot', 'value':'Violinplot'}]
 
     return options
 
@@ -96,13 +101,15 @@ def view_data(json_data):
     Output(component_id='size', component_property='options'),
     Output(component_id='color', component_property='options'),
     Output(component_id='text', component_property='options'),
+    Output(component_id='facetrow', component_property='options'),
+    Output(component_id='facetcolumn', component_property='options'),
     Input(component_id='data-table', component_property='data')
 )
 def generate_options(data_dict):
     df = pd.DataFrame(data_dict)
     column_list = [{'label': col, 'value': col} for col in df.columns]
 
-    return column_list,column_list,column_list,column_list, column_list
+    return column_list,column_list,column_list,column_list, column_list,column_list, column_list
 
 
 #
@@ -170,9 +177,17 @@ def generate_options(data_dict):
     Input(component_id='bins', component_property='value'),
     Input(component_id='marginalx', component_property='value'),
     Input(component_id='marginaly', component_property='value'),
+    Input(component_id='facetrow', component_property='value'),
+    Input(component_id='facetcolumn', component_property='value'),
+    Input(component_id='logx', component_property='value'),
+    Input(component_id='logy', component_property='value'),
 )
 def create_graph( json_data, visualization_library, xaxis, yaxis,
-                        color, size, symbol, hover_name,text, title, chart_type, bins,marginx, marginy):
+                        color, size, symbol, hover_name,text, title, chart_type, bins,
+                  marginx, marginy, facet_row, facet_column, logx, logy):
+    log_dict = dict()
+    log_dict['True'] = True
+    log_dict['False'] = False
     print('in graph callback')
     print(json_data)
     print(xaxis)
@@ -190,14 +205,75 @@ def create_graph( json_data, visualization_library, xaxis, yaxis,
                               symbol=symbol,
                               hover_name=hover_name,
                               text=text, title=title,
-                              marginal_x=marginx, marginal_y=marginy)
+                              marginal_x=marginx,
+                              marginal_y=marginy,
+                              facet_row=facet_row,
+                              facet_col=facet_column,
+                              log_x=log_dict[logx],
+                              log_y=log_dict[logy])
 
             print(plot)
 
         if chart_type == 'Histogram':
-            plot = px.histogram(data_frame=df,x=xaxis,
-                                y=yaxis, nbins=bins
+            plot = px.histogram(data_frame=df,
+                                x=xaxis,
+                                y=yaxis,
+                                nbins=bins,
+                                title=title,
                                 )
+
+        if chart_type== 'Bar Charts':
+            plot = px.bar(data_frame=df,
+                          x=xaxis,
+                          y=yaxis,
+                          facet_row=facet_row,
+                          facet_col=facet_column,
+                          color=color,
+                          log_y=logy,
+                          log_x=logx,
+                          title=title,)
+
+        if chart_type == 'Boxplot':
+            plot = px.box(data_frame=df,
+                          x=xaxis,
+                          y=yaxis,
+                          facet_row=facet_row,
+                          facet_col=facet_column,
+                          color=color,
+                          log_y=logy,
+                          log_x=logx,
+                          title=title,)
+
+        if chart_type == 'Density Contour Charts':
+            plot = px.density_contour(data_frame=df,
+                                      x=xaxis,
+                                      y=yaxis,
+                                      facet_row=facet_row,
+                                      facet_col=facet_column,
+                                      color=color,
+                                      log_y=logy,
+                                      log_x=logx,
+                                      title=title,)
+
+        if chart_type == 'Density Heatmap':
+            plot = px.density_heatmap(data_frame=df,
+                                      x=xaxis,
+                                      y=yaxis,
+                                      facet_row=facet_row,
+                                      facet_col=facet_column,
+                                      log_y=logy,
+                                      log_x=logx,
+                                      title=title,)
+
+        if chart_type == 'Violinplot':
+            plot = px.violin(data_frame=df,
+                             x=xaxis,
+                             y=yaxis,
+                             facet_row=facet_row,
+                             facet_col=facet_column,
+                             log_y=logy,
+                             log_x=logx,
+                             title=title,)
 
         return plot
 

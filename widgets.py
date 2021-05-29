@@ -21,7 +21,7 @@ def create_input_component(input_id, type_of_input, placeholder, debounce=False)
                      debounce=debounce)
 
 
-app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('OpenCharts',)],
+app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('FreeCharts',)],
                      style=app_title_style))
 
 upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and drop file here or",
