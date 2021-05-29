@@ -168,10 +168,11 @@ def generate_options(data_dict):
     Input(component_id='title', component_property='value'),
     Input(component_id='chart-type-dropdown', component_property='value'),
     Input(component_id='bins', component_property='value'),
-
+    Input(component_id='marginalx', component_property='value'),
+    Input(component_id='marginaly', component_property='value'),
 )
-def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
-                        color, size, symbol, hover_name,text, title, chart_type, bins):
+def create_graph( json_data, visualization_library, xaxis, yaxis,
+                        color, size, symbol, hover_name,text, title, chart_type, bins,marginx, marginy):
     print('in graph callback')
     print(json_data)
     print(xaxis)
@@ -188,7 +189,8 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
                               size=size,
                               symbol=symbol,
                               hover_name=hover_name,
-                              text=text, title=title)
+                              text=text, title=title,
+                              marginal_x=marginx, marginal_y=marginy)
 
             print(plot)
 
@@ -198,23 +200,6 @@ def create_scatterplot( json_data, visualization_library, xaxis, yaxis,
                                 )
 
         return plot
-
-
-# @app.callback(
-#     Output(component_id='graph-area', component_property='figure'),
-#     Input(component_id='graph-scatter', component_property='figure'),
-# )
-# def switch_graphs(scatter_graph):
-#     print(scatter_graph)
-#     ctx = dash.callback_context
-#
-#     print('callback context')
-#
-#     print(ctx.triggered)
-#
-#     plot = scatter_graph
-#
-#     return plot
 
 
 
