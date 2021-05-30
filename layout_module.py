@@ -10,26 +10,25 @@ from styles import upload_button_style, app_title_style
 from graph_controls import (create_formgroup)
 from widgets import create_dropdown
 import pandas as pd
-from widgets import (app_title_widget, upload, visualization_library_dropdown,app_markdown,
+from widgets import (app_title_widget, upload, theme_selection_dropdown,
                      chart_type_dropdown,data_store, data_table,
                      label_for_visualization_library,label_for_dropdown,
                      upload_status)
-from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                  data_store,
-                                label_for_visualization_library,
-                                dbc.Row(
+                                 label_for_visualization_library,
+                                 dbc.Row(
                                     [
-                                        dbc.Col(visualization_library_dropdown),
+                                        dbc.Col(theme_selection_dropdown),
                                         dbc.Col(chart_type_dropdown)
                                     ]
                                 ),
                                 dbc.Container([upload,
                                                upload_status])], body=True),
                                 dbc.Container(data_table),
-                                 html.Br(),
+                                html.Br(),
                                 dbc.Row(
                                     [
                                         dbc.Col(dbc.Card(body=True,
@@ -126,8 +125,8 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                                                                                         placeholder='Facet column', )])),
                                                                    ]
                                                          ),
-                                                width=3),
-                                        dbc.Col(dbc.Card(dcc.Graph(id='graph-area'), body=True), width=8),
+                                                width=2),
+                                        dbc.Col(dbc.Card(dcc.Graph(id='graph-area'), body=True), width=10),
                                     ]
                                 ),
                                 # html.Div(dcc.Graph(id='graph-scatter'),style={'display': 'none'} )

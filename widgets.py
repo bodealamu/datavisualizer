@@ -21,6 +21,7 @@ def create_input_component(input_id, type_of_input, placeholder, debounce=False)
                      debounce=debounce)
 
 app_markdown = dcc.Markdown("##### A FREE web tool for creating beautiful charts from your data.")
+
 app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeCharts',),
                                                     html.Hr(),
                                                     app_markdown],
@@ -40,7 +41,25 @@ label_for_dropdown = html.Label('Select the plotting library')
 
 chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',
                                    placeholder="Data Visualization Chart type",
-                                   value='Scatterplot')
+                                   value='Scatterplot',
+                                   options=[{'label': 'Scatterplot', 'value': 'Scatterplot'},
+                                    {'label': 'Bar Charts', 'value': 'Bar Charts'},
+                                    {'label': 'Boxplot', 'value': 'Boxplot'},
+                                    {'label': 'Density Contour Charts', 'value': 'Density Contour Charts'},
+                                    {'label': 'Density Heatmap', 'value': 'Density Heatmap'},
+                                    {'label': 'Histogram', 'value': 'Histogram'},
+                                    {'label': 'Violinplot', 'value': 'Violinplot'}]
+                                   )
+
+theme_selection_dropdown = dcc.Dropdown(id='theme-selection',
+                                        placeholder='Select plot theme',
+                                        value='plotly',
+                                        options=[{'label':'Blue', 'value':'plotly'},
+                                                 {'label':'White and Blue', 'value':'plotly_white'},
+                                                 {'label':'Dark', 'value':'plotly_dark'},
+                                                 {'label':'Grey', 'value':'ggplot2'},
+                                                 {'label':'Seaborn', 'value':'seaborn'},
+                                                 {'label':'Pure white', 'value':'simple_white'},])
 
 data_store = dcc.Store(id='data-store', storage_type='memory')
 
