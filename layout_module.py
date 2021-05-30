@@ -27,6 +27,7 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                 ),
                                 dbc.Container([upload,
                                                upload_status])], body=True),
+                                 html.Br(),
                                 dbc.Container(data_table),
                                 html.Br(),
                                 dbc.Row(

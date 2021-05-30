@@ -58,7 +58,7 @@ theme_selection_dropdown = dcc.Dropdown(id='theme-selection',
                                                  {'label':'White and Blue', 'value':'plotly_white'},
                                                  {'label':'Dark', 'value':'plotly_dark'},
                                                  {'label':'Grey', 'value':'ggplot2'},
-                                                 {'label':'Seaborn', 'value':'seaborn'},
+                                                 {'label':'Grey and Blue', 'value':'seaborn'},
                                                  {'label':'Pure white', 'value':'simple_white'},])
 
 data_store = dcc.Store(id='data-store', storage_type='memory')

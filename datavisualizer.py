@@ -38,8 +38,7 @@ def upload_data(contents, filename,last_modified):
     try:
         content_type, content_string = contents.split(',')
         decoded = base64.b64decode(content_string)
-        timestamp = datetime.datetime.fromtimestamp(last_modified)
-        print(timestamp.strftime('%Y-%m-%d %H:%M:%S'))
+        # timestamp = datetime.datetime.fromtimestamp(last_modified)
         if 'csv' in filename:
             df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
         elif 'xlsx' in filename:
@@ -136,6 +135,8 @@ def create_graph( json_data, xaxis, yaxis,
                           log_x=log_dict[logx],
                           log_y=log_dict[logy],
                           template=theme)
+
+        plot.write_image("scatter.png")
 
     if chart_type == 'Histogram':
         plot = px.histogram(data_frame=df,
