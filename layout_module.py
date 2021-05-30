@@ -10,14 +10,14 @@ from styles import upload_button_style, app_title_style
 from graph_controls import (create_formgroup)
 from widgets import create_dropdown
 import pandas as pd
-from widgets import (app_title_widget, upload, visualization_library_dropdown,
+from widgets import (app_title_widget, upload, visualization_library_dropdown,app_markdown,
                      chart_type_dropdown,data_store, data_table,
                      label_for_visualization_library,label_for_dropdown,
                      upload_status)
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-main_layout = html.Div(children=[app_title_widget,
+main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                  data_store,
                                 label_for_visualization_library,
                                 dbc.Row(
@@ -27,9 +27,9 @@ main_layout = html.Div(children=[app_title_widget,
                                     ]
                                 ),
                                 dbc.Container([upload,
-                                               upload_status]),
+                                               upload_status])], body=True),
                                 dbc.Container(data_table),
-                                html.Hr(),
+                                 html.Br(),
                                 dbc.Row(
                                     [
                                         dbc.Col(dbc.Card(body=True,
