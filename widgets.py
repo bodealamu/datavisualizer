@@ -20,14 +20,16 @@ def create_input_component(input_id, type_of_input, placeholder, debounce=False)
                      placeholder=placeholder,
                      debounce=debounce)
 
+data_disclaimer_markdown = dcc.Markdown("No worries, the data you insert will be processed only by the web browser. ")
+data_disclaimer2 = dcc.Markdown("No server-side operations or storages are performed, no one will see, touch or copy your data!")
 app_markdown = dcc.Markdown("##### A FREE web tool for creating beautiful charts from your data.")
 
 app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeCharts',),
                                                     html.Hr(),
-                                                    app_markdown],
+                                                    app_markdown,data_disclaimer_markdown, data_disclaimer2],
                                           style=app_title_style))
 
-upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and drop file here or",
+upload = dcc.Upload(id='upload-widget',children=html.Div(children=["Drag and drop your csv / excel file (200Mb max) here or",
                                                 html.A('Select files')],
                                       style=upload_button_style,
                                       ))
