@@ -6,11 +6,21 @@ import pandas as pd
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from layout_module import main_layout
+import time
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True)
 
 server = app.server
+
+
+@app.callback(
+    Output("loading-1", 'children'),
+    Input(component_id='data-store', component_property='data')
+)
+def spinners(data):
+    time.sleep(2)
+    return
 
 
 @app.callback(

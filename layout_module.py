@@ -9,6 +9,11 @@ import dash_bootstrap_components as dbc
 main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                  data_store,
                                  label_for_visualization_library,
+                                   dcc.Loading(
+                                       id="loading-1",fullscreen=True,
+                                       type="default",
+                                       children=html.Div(id="loading-output-1")
+                                   ),
                                  dbc.Row(
                                     [
                                         dbc.Col(theme_selection_dropdown),
