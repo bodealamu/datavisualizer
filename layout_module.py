@@ -2,18 +2,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 from widgets import (app_title_widget, upload, theme_selection_dropdown,
                      chart_type_dropdown,data_store, data_table,
-                     label_for_visualization_library,label_for_dropdown,
+                     label_for_visualization_library,xaxis_widget,yaxis_widget,
+                     spinners_widget,title_of_chart_widget,
                      upload_status)
 import dash_bootstrap_components as dbc
 
-main_layout = html.Div(children=[dbc.Card([app_title_widget,
-                                 data_store,
-                                 label_for_visualization_library,
-                                   dcc.Loading(
-                                       id="loading-1",fullscreen=True,
-                                       type="default",
-                                       children=html.Div(id="loading-output-1")
-                                   ),
+main_layout = html.Div(children=[dbc.Card([app_title_widget,data_store,label_for_visualization_library,
+                                           spinners_widget,
                                  dbc.Row(
                                     [
                                         dbc.Col(theme_selection_dropdown),
@@ -29,23 +24,9 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                     [
                                         dbc.Col(dbc.Card(body=True,
                                                          id='graph-controls-card',
-                                                         children=[dbc.FormGroup(html.Div(id='title-html',
-                                                                                          children=[dbc.Label(
-                                                                                              'Title of the chart'),
-                                                                                                    dcc.Input(
-                                                                                                        id='title',
-                                                                                                        type='text',
-                                                                                                        placeholder='Chart title',
-                                                                                                        debounce=False)])),
-                                                                   dbc.FormGroup(html.Div(id='xaxis-html',
-                                                                                          children=[dbc.Label('X axis'),
-                                                                                                    dcc.Dropdown(id='x-axis',
-                                                                                                                 placeholder='Select Column for text',)])),
-                                                                   dbc.FormGroup(html.Div(id='yaxis-html',
-                                                                                          children=[dbc.Label('Y axis'),
-                                                                                                    dcc.Dropdown(
-                                                                                                        id='y-axis',
-                                                                                                        placeholder='Select Column for text', )])),
+                                                         children=[title_of_chart_widget,
+                                                                   xaxis_widget,yaxis_widget,
+
                                                                    dbc.FormGroup(html.Div(id='size-html',
                                                                                           children=[dbc.Label('Size (Optional)'),
                                                                                                     dcc.Dropdown(id='size',

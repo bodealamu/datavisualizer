@@ -71,3 +71,23 @@ upload_status = html.Div(id='upload-status')
 
 label_for_visualization_library = html.Label("Select visualization library and Chart type")
 
+spinners_widget = dcc.Loading(id="loading-1",
+                              fullscreen=True,
+                              type="default",
+                              children=html.Div(id="loading-output-1"))
+
+title_of_chart_widget = dbc.FormGroup(html.Div(id='title-html',children=[dbc.Label('Title of the chart'),
+                                                                                    dcc.Input(
+                                                                                        id='title',
+                                                                                        type='text',
+                                                                                        placeholder='Chart title',
+                                                                                        debounce=False)]))
+
+xaxis_widget =dbc.FormGroup(html.Div(id='xaxis-html',children=[dbc.Label('X axis'),
+                                                               dcc.Dropdown(id='x-axis',
+                                                                            placeholder='Select Column for text',)]))
+
+
+yaxis_widget = dbc.FormGroup(html.Div(id='yaxis-html',children=[dbc.Label('Y axis'),dcc.Dropdown(id='y-axis',
+                                                                                                 placeholder='Select Column for text', )]))
+
