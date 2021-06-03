@@ -29,7 +29,7 @@ app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeChar
                                                     app_markdown,data_disclaimer_markdown, data_disclaimer2],
                                           style=app_title_style))
 
-upload = dcc.Upload(id='upload-widget',max_size=20000000,children=html.Div(children=["Drag and drop your csv / excel file (20Mb max) here or",
+upload = dcc.Upload(id='upload-widget',max_size=10000000,children=html.Div(children=["Drag and drop your csv file (10Mb max) here or",
                                                 html.A('Select files')],
                                       style=upload_button_style,
                                       ))
@@ -47,8 +47,8 @@ chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',
                                    options=[{'label': 'Scatterplot', 'value': 'Scatterplot'},
                                     {'label': 'Bar Charts', 'value': 'Bar Charts'},
                                     {'label': 'Boxplot', 'value': 'Boxplot'},
-                                    {'label': 'Density Contour Charts', 'value': 'Density Contour Charts'},
-                                    {'label': 'Density Heatmap', 'value': 'Density Heatmap'},
+                                    # {'label': 'Density Contour Charts', 'value': 'Density Contour Charts'},
+                                    # {'label': 'Density Heatmap', 'value': 'Density Heatmap'},
                                     {'label': 'Histogram', 'value': 'Histogram'},
                                     {'label': 'Violinplot', 'value': 'Violinplot'}]
                                    )

@@ -129,10 +129,11 @@ def generate_options(data_dict):
     Input(component_id='logx', component_property='value'),
     Input(component_id='logy', component_property='value'),
     Input(component_id='theme-selection', component_property='value'),
+    Input(component_id='barmodex', component_property='value'),
 )
 def create_graph( json_data, xaxis, yaxis,
                         color, size, symbol, hover_name,text, title, chart_type, bins,
-                  marginx, marginy, facet_row, facet_column, logx, logy, theme):
+                  marginx, marginy, facet_row, facet_column, logx, logy, theme, barmode):
     log_dict = dict()
     log_dict['True'] = True
     log_dict['False'] = False
@@ -164,7 +165,7 @@ def create_graph( json_data, xaxis, yaxis,
         plot = px.histogram(data_frame=df,
                             x=xaxis,
                             y=yaxis,
-                            nbins=bins,
+                            nbins=bins,color=color,
                             title=title,template=theme,
                             )
 
@@ -176,7 +177,7 @@ def create_graph( json_data, xaxis, yaxis,
                       facet_col=facet_column,
                       color=color,
                       log_y=logy,
-                      log_x=logx,template=theme,
+                      log_x=logx,template=theme,barmode=barmode,
                       title=title,)
 
     if chart_type == 'Boxplot':
