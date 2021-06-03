@@ -1,19 +1,8 @@
 import plotly.express as px
-import dash_core_components as dcc
 import base64
-import dash_html_components as html
 import dash
-import datetime
-import dash_table
 import io
-from styles import upload_button_style, app_title_style
-from graph_controls import (create_formgroup)
-from widgets import create_dropdown
 import pandas as pd
-from widgets import (app_title_widget, upload, visualization_library_dropdown,
-                     chart_type_dropdown,data_store, data_table,
-                     label_for_visualization_library,label_for_dropdown,
-                     upload_status)
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from layout_module import main_layout
