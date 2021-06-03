@@ -9,8 +9,7 @@ from layout_module import main_layout
 import time
 
 
-app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True,
-                )
+app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True)
 
 server = app.server
 
