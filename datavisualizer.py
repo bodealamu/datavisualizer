@@ -77,13 +77,15 @@ def view_data(json_data):
     Output(component_id='text', component_property='options'),
     Output(component_id='facetrow', component_property='options'),
     Output(component_id='facetcolumn', component_property='options'),
+    Output(component_id='hover-text', component_property='options'),
+    Output(component_id='symbol', component_property='options'),
     Input(component_id='data-table', component_property='data')
 )
 def generate_options(data_dict):
     df = pd.DataFrame(data_dict)
     column_list = [{'label': col, 'value': col} for col in df.columns]
 
-    return column_list,column_list,column_list,column_list, column_list,column_list, column_list
+    return column_list,column_list,column_list,column_list, column_list,column_list, column_list,column_list, column_list
 
 
 @app.callback(
