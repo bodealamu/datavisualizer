@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from widgets import (app_title_widget, upload, theme_selection_dropdown,
                      chart_type_dropdown,data_store, data_table,
-                     label_for_visualization_library,xaxis_widget,yaxis_widget,
+                     label_for_visualization_library,xaxis_widget,yaxis_widget,logx_widget, logy_widget,
                      spinners_widget,title_of_chart_widget,
                      upload_status)
 import dash_bootstrap_components as dbc
@@ -84,22 +84,7 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,data_store,label_for
                                                                                                                  {'label':'histogram','value':'histogram'}],
                                                                                                         id='marginaly',
                                                                                                         placeholder='Marginal Y', )])),
-                                                                   dbc.FormGroup(html.Div(id='logx-html',
-                                                                                          children=[dbc.Label('Log X (Optional)'),
-                                                                                                    dcc.RadioItems(
-                                                                                                        options=[{'label':'True', 'value':"True"},
-                                                                                                                {'label':'False', 'value':'False'}],
-                                                                                                        id='logx',
-                                                                                                        value="False"
-                                                                                                         )])),
-                                                                   dbc.FormGroup(html.Div(id='logy-html',
-                                                                                          children=[dbc.Label('Log Y (Optional)'),
-                                                                                                    dcc.RadioItems(
-                                                                                                        options=[{'label':'True', 'value':'True'},
-                                                                                                                {'label':'False', 'value':'False'}],
-                                                                                                        id='logy',
-                                                                                                        value='False'
-                                                                                                    )])),
+
                                                                    dbc.FormGroup(html.Div(id='facetrow-html',
                                                                                           children=[dbc.Label('Facet row (Optional)'),
                                                                                                     dcc.Dropdown(
@@ -110,6 +95,7 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,data_store,label_for
                                                                                                     dcc.Dropdown(
                                                                                                         id='facetcolumn',
                                                                                                         placeholder='Facet column', )])),
+                                                                   logx_widget, logy_widget
                                                                    ]
                                                          ),
                                                 width=3),

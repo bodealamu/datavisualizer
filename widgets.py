@@ -91,3 +91,19 @@ xaxis_widget =dbc.FormGroup(html.Div(id='xaxis-html',children=[dbc.Label('X axis
 yaxis_widget = dbc.FormGroup(html.Div(id='yaxis-html',children=[dbc.Label('Y axis'),dcc.Dropdown(id='y-axis',
                                                                                                  placeholder='Select Column for text', )]))
 
+logx_widget = dbc.FormGroup(html.Div(id='logx-html',children=[dbc.Label('Log X (Optional)'),
+                                                                        dcc.RadioItems(
+                                                                            options=[{'label':'True', 'value':"True"},
+                                                                                    {'label':'False', 'value':'False'}],
+                                                                            id='logx',
+                                                                            value="False"
+                                                                             )]))
+
+logy_widget = dbc.FormGroup(html.Div(id='logy-html',children=[dbc.Label('Log Y (Optional)'), dcc.RadioItems(
+                                                                                                        options=[{'label':'True', 'value':'True'},
+                                                                                                                {'label':'False', 'value':'False'}],
+                                                                                                        id='logy',
+                                                                                                        value='False'
+                                                                                                    )]))
+
+
