@@ -7,12 +7,14 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from layout_module import main_layout
 import time
+from widgets import tab2_content, tab1_content,tab3_content
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True)
 
 server = app.server
 
+app.layout = main_layout
 
 @app.callback(
     Output("loading-1", 'children'),
@@ -221,8 +223,16 @@ def create_graph( json_data, xaxis, yaxis,
 
     return plot
 
+@app.callback(Output('tab-div', "children"),
+              [Input("tabs", "active_tab")])
+def switch_tab(at):
+    if at == "tab-1":
+        return tab1_content
+    if at == "tab-2":
+        return tab2_content
+    if at == "tab-3":
+        return tab3_content
 
-app.layout = main_layout
 
 
 if __name__ == '__main__':
