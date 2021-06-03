@@ -1,6 +1,5 @@
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
-from widgets import create_dropdown, create_input_component
 import dash_html_components as html
 
 

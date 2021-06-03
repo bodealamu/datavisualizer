@@ -29,7 +29,15 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                     [
                                         dbc.Col(dbc.Card(body=True,
                                                          id='graph-controls-card',
-                                                         children=[dbc.FormGroup(html.Div(id='xaxis-html',
+                                                         children=[dbc.FormGroup(html.Div(id='title-html',
+                                                                                          children=[dbc.Label(
+                                                                                              'Title of the chart'),
+                                                                                                    dcc.Input(
+                                                                                                        id='title',
+                                                                                                        type='text',
+                                                                                                        placeholder='Chart title',
+                                                                                                        debounce=False)])),
+                                                                   dbc.FormGroup(html.Div(id='xaxis-html',
                                                                                           children=[dbc.Label('X axis'),
                                                                                                     dcc.Dropdown(id='x-axis',
                                                                                                                  placeholder='Select Column for text',)])),
@@ -67,14 +75,16 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                                                                                         type='number',
                                                                                                         placeholder='Number of bins',
                                                                                                         debounce=False)])),
-                                                                   dbc.FormGroup(html.Div(id='title-html',
-                                                                                          children=[dbc.Label(
-                                                                                              'Title of the chart (Optional)'),
-                                                                                                    dcc.Input(
-                                                                                                        id='title',
-                                                                                                        type='text',
-                                                                                                        placeholder='Chart title',
-                                                                                                        debounce=False)])),
+
+                                                                   dbc.FormGroup(html.Div(id='barmode-html',
+                                                                                          children=[dbc.Label('Barmode'),
+                                                                                                    dcc.Dropdown(
+                                                                                                        options=[{'label':'overlay','value':'overlay'},
+                                                                                                                 {'label':'relative','value':'relative'},
+                                                                                                                 {'label':'group','value':'group'},
+                                                                                                                 ],
+                                                                                                        id='barmodex',
+                                                                                                        placeholder='Bar mode', )])),
                                                                    dbc.FormGroup(html.Div(id='marginalx-html',
                                                                                           children=[dbc.Label('Marginal X (Optional)'),
                                                                                                     dcc.Dropdown(
@@ -121,8 +131,8 @@ main_layout = html.Div(children=[dbc.Card([app_title_widget,
                                                                                                         placeholder='Facet column', )])),
                                                                    ]
                                                          ),
-                                                width=2),
-                                        dbc.Col(dbc.Card(dcc.Graph(id='graph-area'), body=True), width=10),
+                                                width=3),
+                                        dbc.Col(dbc.Card(dcc.Graph(id='graph-area'), body=True), width=9),
                                     ]
                                 ),
                                 # html.Div(dcc.Graph(id='graph-scatter'),style={'display': 'none'} )

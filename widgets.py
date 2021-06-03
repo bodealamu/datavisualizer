@@ -29,8 +29,7 @@ app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeChar
                                                     app_markdown,data_disclaimer_markdown, data_disclaimer2],
                                           style=app_title_style))
 
-upload = dcc.Upload(id='upload-widget',max_size=20000000
-,children=html.Div(children=["Drag and drop your csv / excel file (20Mb max) here or",
+upload = dcc.Upload(id='upload-widget',max_size=20000000,children=html.Div(children=["Drag and drop your csv / excel file (20Mb max) here or",
                                                 html.A('Select files')],
                                       style=upload_button_style,
                                       ))

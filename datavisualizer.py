@@ -24,6 +24,24 @@ def spinners(data):
 
 
 @app.callback(
+    Output(component_id='bins-html', component_property='style'),
+    Output(component_id='size-html', component_property='style'),
+    Output(component_id='symbol-html', component_property='style'),
+    Output(component_id='barmode-html', component_property='style'),
+    Input('chart-type-dropdown', component_property='value')
+)
+def hide_nbins(chart_type):
+    if chart_type == 'Scatterplot':
+        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'}
+
+    if chart_type=='Histogram':
+        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+
+    if chart_type=='Bar Charts':
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'}
+
+
+@app.callback(
     Output(component_id='data-store', component_property='data'),
     Output(component_id='upload-status', component_property='children'),
     Input(component_id='upload-widget',component_property='contents'),
