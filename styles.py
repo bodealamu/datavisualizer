@@ -6,4 +6,4 @@ upload_button_style = {'width':'100%',
                        'borderStyle': 'dashed',
                        'borderRadius': '5px',}
 
-app_title_style = {'textAlign':'center'}
+app_title_style = {'textAlign':'center',}

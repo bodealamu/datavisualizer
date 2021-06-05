@@ -24,7 +24,7 @@ data_disclaimer_markdown = dcc.Markdown("No worries, the data you insert will be
 data_disclaimer2 = dcc.Markdown("No server-side operations or storages are performed, no one will see, touch or copy your data!")
 app_markdown = dcc.Markdown("##### A FREE web tool for creating beautiful charts from your data.")
 
-app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeCharts',),
+app_title_widget = dbc.Jumbotron(html.Div(children=[html.H1('Welcome to FreeCharts',style={'color':'red'}),
                                                     html.Hr(),
                                                     app_markdown,data_disclaimer_markdown, data_disclaimer2],
                                           style=app_title_style))

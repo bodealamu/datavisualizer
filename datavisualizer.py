@@ -10,7 +10,8 @@ import time
 from widgets import tab2_content, tab1_content,tab3_content
 
 
-app = dash.Dash(external_stylesheets=[dbc.themes.LITERA],suppress_callback_exceptions=True)
+app = dash.Dash(external_stylesheets=[dbc.themes.SIMPLEX],suppress_callback_exceptions=True)
+#LITERA SOLAR SLATE DARKLY COSMO FLATLY JOURNAL LUMEN MATERIA PULSE SANDSTONE
 
 server = app.server
 
