@@ -55,13 +55,14 @@ chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',
 
 theme_selection_dropdown = dcc.Dropdown(id='theme-selection',
                                         placeholder='Select plot theme',
-                                        value='plotly',
+                                        value='ggplot2',
                                         options=[{'label':'Blue', 'value':'plotly'},
                                                  {'label':'White and Blue', 'value':'plotly_white'},
                                                  {'label':'Dark', 'value':'plotly_dark'},
                                                  {'label':'Grey', 'value':'ggplot2'},
                                                  {'label':'Grey and Blue', 'value':'seaborn'},
-                                                 {'label':'Pure white', 'value':'simple_white'},])
+                                                 {'label':'Pure white', 'value':'simple_white'},],
+                                        )
 
 data_store = dcc.Store(id='data-store', storage_type='memory')
 
