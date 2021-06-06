@@ -23,7 +23,7 @@ app.layout = main_layout
     prevent_initial_callbacks=True
 )
 def spinners(data):
-    time.sleep(2)
+    time.sleep(1)
     return
 
 
@@ -32,17 +32,19 @@ def spinners(data):
     Output(component_id='size-html', component_property='style'),
     Output(component_id='symbol-html', component_property='style'),
     Output(component_id='barmode-html', component_property='style'),
+    Output(component_id='marginaly-html', component_property='style'),
+    Output(component_id='text-html', component_property='style'),
     Input('chart-type-dropdown', component_property='value')
 )
 def hide_nbins(chart_type):
     if chart_type == 'Scatterplot':
-        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'}
+        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'}
 
     if chart_type=='Histogram':
-        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'block'},{'display':'none'},{'display':'none'}
 
     if chart_type=='Bar Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'block'},{'display':'none'}
 
 
 @app.callback(
@@ -166,8 +168,14 @@ def create_graph( json_data, xaxis, yaxis,
         plot = px.histogram(data_frame=df,
                             x=xaxis,
                             y=yaxis,
-                            nbins=bins,color=color,
-                            title=title,template=theme,
+                            nbins=bins,
+                            color=color,
+                            title=title,
+                            template=theme,
+                            barmode=barmode,
+                            facet_row=facet_row,
+                            facet_col=facet_column,
+                            marginal=marginx
                             )
 
     if chart_type== 'Bar Charts':
