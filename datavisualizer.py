@@ -34,17 +34,18 @@ def spinners(data):
     Output(component_id='barmode-html', component_property='style'),
     Output(component_id='marginaly-html', component_property='style'),
     Output(component_id='text-html', component_property='style'),
+    Output(component_id='marginalx-html', component_property='style'),
     Input('chart-type-dropdown', component_property='value')
 )
 def hide_nbins(chart_type):
     if chart_type == 'Scatterplot':
-        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'}
+        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}
 
     if chart_type=='Histogram':
-        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'block'},{'display':'none'},{'display':'none'}
+        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'block'},{'display':'none'},{'display':'none'},{'display':'block'}
 
     if chart_type=='Bar Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'block'},{'display':'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'none'},{'display':'none'},{'display':'none'}
 
 
 @app.callback(
