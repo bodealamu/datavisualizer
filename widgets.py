@@ -102,12 +102,10 @@ logx_widget = dbc.FormGroup(html.Div(id='logx-html',children=[dbc.Label('Log X (
                                                                             value="False"
                                                                              )]))
 
-logy_widget = dbc.FormGroup(html.Div(id='logy-html',children=[dbc.Label('Log Y (Optional)'), dcc.RadioItems(
-                                                                                                        options=[{'label':'True', 'value':'True'},
-                                                                                                                {'label':'False', 'value':'False'}],
-                                                                                                        id='logy',
-                                                                                                        value='False'
-                                                                                                    )]))
+logy_widget = dbc.FormGroup(html.Div(id='logy-html',children=[dbc.Label('Log Y (Optional)'),
+                                                              dcc.RadioItems(options=[{'label':'True', 'value':'True'}, {'label':'False', 'value':'False'}],
+                                                                             id='logy',
+                                                                             value='False')]))
 
 
 tabs = html.Div(
@@ -183,6 +181,17 @@ tab1_content = dbc.Row(
                                                                                                 ],
                                                                                             id='boxmode',
                                                                                             placeholder='Box mode', )])),
+                                                       dbc.FormGroup(html.Div(id='violinmode-html',
+                                                                              children=[dbc.Label('Violinmode'),
+                                                                                        dcc.Dropdown(
+                                                                                            options=[
+                                                                                                {'label': 'overlay',
+                                                                                                 'value': 'overlay'},
+                                                                                                {'label': 'group',
+                                                                                                 'value': 'group'},
+                                                                                            ],
+                                                                                            id='violinmode',
+                                                                                            placeholder='Violin mode', )])),
                                                        dbc.FormGroup(html.Div(id='marginalx-html',
                                                                               children=[dbc.Label('Marginal X (Optional)'),
                                                                                         dcc.Dropdown(
