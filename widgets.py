@@ -172,6 +172,17 @@ tab1_content = dbc.Row(
                                                                                                      ],
                                                                                             id='barmodex',
                                                                                             placeholder='Bar mode', )])),
+                                                       dbc.FormGroup(html.Div(id='boxmode-html',
+                                                                              children=[dbc.Label('Boxmode'),
+                                                                                        dcc.Dropdown(
+                                                                                            options=[
+                                                                                                {'label': 'overlay',
+                                                                                                 'value': 'overlay'},
+                                                                                                {'label': 'group',
+                                                                                                 'value': 'group'},
+                                                                                                ],
+                                                                                            id='boxmode',
+                                                                                            placeholder='Box mode', )])),
                                                        dbc.FormGroup(html.Div(id='marginalx-html',
                                                                               children=[dbc.Label('Marginal X (Optional)'),
                                                                                         dcc.Dropdown(
