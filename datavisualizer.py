@@ -59,6 +59,9 @@ def hide_options(chart_type):
     if chart_type=='Density Contour Charts':
         return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
 
+    if chart_type=='Density Heatmap':
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
+
 @app.callback(
     Output(component_id='data-store', component_property='data'),
     Output(component_id='upload-status', component_property='children'),
