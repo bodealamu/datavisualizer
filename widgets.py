@@ -47,8 +47,8 @@ chart_type_dropdown = dcc.Dropdown(id='chart-type-dropdown',
                                    options=[{'label': 'Scatterplot', 'value': 'Scatterplot'},
                                     {'label': 'Bar Charts', 'value': 'Bar Charts'},
                                     {'label': 'Boxplot', 'value': 'Boxplot'},
-                                    # {'label': 'Density Contour Charts', 'value': 'Density Contour Charts'},
-                                    # {'label': 'Density Heatmap', 'value': 'Density Heatmap'},
+                                    {'label': 'Density Contour Charts', 'value': 'Density Contour Charts'},
+                                    {'label': 'Density Heatmap', 'value': 'Density Heatmap'},
                                     {'label': 'Histogram', 'value': 'Histogram'},
                                     {'label': 'Violinplot', 'value': 'Violinplot'}]
                                    )

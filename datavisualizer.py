@@ -8,6 +8,7 @@ import dash_bootstrap_components as dbc
 from layout_module import main_layout
 import time
 from widgets import tab2_content, tab1_content,tab3_content
+import plotly.graph_objects as go
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.SIMPLEX],suppress_callback_exceptions=True)
@@ -39,7 +40,7 @@ def spinners(data):
     Output(component_id='violinmode-html', component_property='style'),
     Input('chart-type-dropdown', component_property='value')
 )
-def hide_nbins(chart_type):
+def hide_options(chart_type):
     if chart_type == 'Scatterplot':
         return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
 
@@ -54,6 +55,9 @@ def hide_nbins(chart_type):
 
     if chart_type=='Violinplot':
         return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'block'}
+
+    if chart_type=='Density Contour Charts':
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
 
 @app.callback(
     Output(component_id='data-store', component_property='data'),
@@ -72,6 +76,7 @@ def upload_data(contents, filename,last_modified):
         # timestamp = datetime.datetime.fromtimestamp(last_modified)
         if 'csv' in filename:
             df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
+            # print(df.describe())
         elif 'xlsx' in filename:
             pass
         else:
@@ -153,7 +158,9 @@ def create_graph( json_data, xaxis, yaxis,
     log_dict['False'] = False
 
     df = pd.read_json(json_data, orient='split')
-    plot = px.scatter()
+    # plot = go.Figure()
+
+    plot = None
 
     if chart_type=='Scatterplot':
 
@@ -164,7 +171,8 @@ def create_graph( json_data, xaxis, yaxis,
                           size=size,
                           symbol=symbol,
                           hover_name=hover_name,
-                          text=text, title=title,
+                          text=text,
+                          title=title,
                           marginal_x=marginx,
                           marginal_y=marginy,
                           facet_row=facet_row,
@@ -196,8 +204,8 @@ def create_graph( json_data, xaxis, yaxis,
                       facet_row=facet_row,
                       facet_col=facet_column,
                       color=color,
-                      log_y=logy,
-                      log_x=logx,
+                      log_x=log_dict[logx],
+                      log_y=log_dict[logy],
                       template=theme,
                       barmode=barmode,
                       title=title,)
@@ -209,11 +217,11 @@ def create_graph( json_data, xaxis, yaxis,
                       facet_row=facet_row,
                       facet_col=facet_column,
                       color=color,
-                      log_y=logy,
-                      log_x=logx,
+                      log_x=log_dict[logx],
+                      log_y=log_dict[logy],
                       template=theme,
-                      title=title,
-                      boxmode=boxmode)
+                      title=title,boxmode=boxmode
+                    )
 
     if chart_type == 'Density Contour Charts':
         plot = px.density_contour(data_frame=df,
@@ -222,8 +230,12 @@ def create_graph( json_data, xaxis, yaxis,
                                   facet_row=facet_row,
                                   facet_col=facet_column,
                                   color=color,
-                                  log_y=logy,
-                                  log_x=logx,template=theme,
+                                  log_x=log_dict[logx],
+                                  log_y=log_dict[logy],
+                                  marginal_x=marginx,
+                                  marginal_y=marginy,
+                                  template=theme,
+                                  hover_name=hover_name,
                                   title=title)
 
     if chart_type == 'Density Heatmap':
@@ -232,8 +244,12 @@ def create_graph( json_data, xaxis, yaxis,
                                   y=yaxis,
                                   facet_row=facet_row,
                                   facet_col=facet_column,
-                                  log_y=logy,
-                                  log_x=logx,template=theme,
+                                  log_x=log_dict[logx],
+                                  log_y=log_dict[logy],
+                                  marginal_x=marginx,
+                                  marginal_y=marginy,
+                                  hover_name=hover_name,
+                                  template=theme,
                                   title=title,)
 
     if chart_type == 'Violinplot':
@@ -242,8 +258,8 @@ def create_graph( json_data, xaxis, yaxis,
                          y=yaxis,
                          facet_row=facet_row,
                          facet_col=facet_column,
-                         log_y=logy,
-                         log_x=logx,
+                         log_x=log_dict[logx],
+                         log_y=log_dict[logy],
                          template=theme,
                          title=title,
                          violinmode=violinmode)
@@ -259,7 +275,6 @@ def switch_tab(at):
         return tab2_content
     if at == "tab-3":
         return tab3_content
-
 
 
 if __name__ == '__main__':
