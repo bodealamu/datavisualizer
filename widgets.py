@@ -240,7 +240,17 @@ tab2_content = dbc.Card(
     className="mt-3",
 )
 
-tab3_content = dbc.Card(body=True,
-                        children=html.H1('Tutorial video coming soon'))
+tab3_content = dbc.Card(body=True,style={'align':'center'},
+                        children=[html.H3('Tutorial videos'),
+                                  html.P("How to add Boxplots."),
+                                  html.Iframe(src="https://www.youtube.com/embed/iamxgU1hIZ4",
+                                              style={"height": "350px","width": "60%",'align':'center','title':"YouTube video player"}),
+                                  html.P("How to add Scatter plots."),
+                                  html.Iframe(src="https://www.youtube.com/embed/LkwHaSf4g7Y",
+                                              style={"height": "350px", "width": "60%", 'align': 'center',
+                                                     'title': "YouTube video player"})
+                                  ])
+
+
 
 
