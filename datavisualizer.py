@@ -258,7 +258,7 @@ def create_graph( json_data, xaxis, yaxis,
     if chart_type == 'Violinplot':
         plot = px.violin(data_frame=df,
                          x=xaxis,
-                         y=yaxis,
+                         y=yaxis,color=color,
                          facet_row=facet_row,
                          facet_col=facet_column,
                          log_x=log_dict[logx],
