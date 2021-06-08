@@ -234,7 +234,7 @@ tab2_content = dbc.Card(
         [
             html.P("This app was created by Olabode Alamu, a passionate Data scientist that believes everyone should be able to create beautiful charts without code.", className="card-text"),
             html.P("Check out the tutorial section for videos on how to use this tool. ",className="card-text"),
-            html.P("The size of files which can be uploaded is limited by the amount of compute available for this site (which depends on how much I am willing to pay Heroku)", className="card-text"),
+            html.P("The size of files which can be uploaded is limited by the amount of compute available for this site (which depends on how much I am willing to pay Heroku), if interested in sponsoring this site with compute resources please reach out to me.", className="card-text"),
         ]
     ),
     className="mt-3",
