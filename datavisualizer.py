@@ -18,12 +18,14 @@ server = app.server
 
 app.layout = main_layout
 
+
 @app.callback(
     Output("loading-1", 'children'),
     Input(component_id='data-store', component_property='data'),
     prevent_initial_callbacks=True
 )
 def spinners(data):
+    """Handles the pre-loading functionality"""
     time.sleep(1)
     return
 
