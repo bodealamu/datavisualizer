@@ -88,11 +88,11 @@ title_of_chart_widget = dbc.FormGroup(html.Div(id='title-html',children=[dbc.Lab
 
 xaxis_widget =dbc.FormGroup(html.Div(id='xaxis-html',children=[dbc.Label('X axis'),
                                                                dcc.Dropdown(id='x-axis',
-                                                                            placeholder='Select Column for text',)]))
+                                                                            placeholder='Select Column for X axis',)]))
 
 
 yaxis_widget = dbc.FormGroup(html.Div(id='yaxis-html',children=[dbc.Label('Y axis'),dcc.Dropdown(id='y-axis',
-                                                                                                 placeholder='Select Column for text', )]))
+                                                                                                 placeholder='Select Column for Y axis', )]))
 
 logx_widget = dbc.FormGroup(html.Div(id='logx-html',
                                      children=[dbc.Label('Log X (Optional)'),
@@ -107,10 +107,10 @@ logy_widget = dbc.FormGroup(html.Div(id='logy-html',
                                                                     id='logy',value='False')]))
 size_widget = dbc.FormGroup(html.Div(id='size-html',
                                      children=[dbc.Label('Size (Optional)'),
-                                               dcc.Dropdown(id='size',placeholder='Select Column for text',)]))
+                                               dcc.Dropdown(id='size',placeholder='Select Column for Size',)]))
 color_widget=dbc.FormGroup(html.Div(id='color-html',
                                     children=[dbc.Label('Color (Optional)'),
-                                              dcc.Dropdown(id='color',placeholder='Select Column for text',)]))
+                                              dcc.Dropdown(id='color',placeholder='Select Column for Color',)]))
 
 text_widget=dbc.FormGroup(html.Div(id='text-html',
                                    children=[dbc.Label('Text (Optional)'),
@@ -118,10 +118,11 @@ text_widget=dbc.FormGroup(html.Div(id='text-html',
 
 hover_text_widget = dbc.FormGroup(html.Div(id='hover-html',
                                            children=[dbc.Label('Hover Text (Optional)'),
-                                                     dcc.Dropdown(id='hover-text',placeholder='X axis', )]))
+                                                     dcc.Dropdown(id='hover-text',
+                                                                  placeholder='Text on hover', )]))
 
 symbol_widget = dbc.FormGroup(html.Div(id='symbol-html', children=[dbc.Label('Symbol (Optional)'),
-                                                                   dcc.Dropdown(id='symbol', placeholder='X axis', )]))
+                                                                   dcc.Dropdown(id='symbol', placeholder='Symbol', )]))
 bins_widget = dbc.FormGroup(html.Div(id='bins-html', children=[dbc.Label('Number of bins'),
                                                                dcc.Input(id='bins', type='number',
                                                                          placeholder='Number of bins',
