@@ -123,6 +123,7 @@ def view_data(json_data):
     Output(component_id='facetcolumn', component_property='options'),
     Output(component_id='hover-text', component_property='options'),
     Output(component_id='symbol', component_property='options'),
+    Output(component_id='linegroup-axis', component_property='options'),
     Input(component_id='data-table', component_property='data')
 )
 def generate_options(data_dict):
