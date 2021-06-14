@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from layout_module import main_layout
 import time
-from widgets import tab2_content, tab1_content,tab3_content
+from tabs_module import tab2_content, tab1_content,tab3_content
 import plotly.graph_objects as go
 
 
@@ -40,29 +40,31 @@ def spinners(data):
     Output(component_id='marginalx-html', component_property='style'),
     Output(component_id='boxmode-html', component_property='style'),
     Output(component_id='violinmode-html', component_property='style'),
+    Output(component_id='linegroup-html', component_property='style'),
     Input('chart-type-dropdown', component_property='value')
 )
 def hide_options(chart_type):
     if chart_type == 'Scatterplot':
-        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
-
+        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+    if chart_type == 'Lineplot':
+        return {'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display':'block'}
     if chart_type=='Histogram':
-        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'block'},{'display':'none'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
+        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
 
     if chart_type=='Bar Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
 
     if chart_type=='Boxplot':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'block'}, {'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'block'}, {'display': 'none'},{'display': 'none'}
 
     if chart_type=='Violinplot':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'block'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'block'},{'display': 'none'}
 
     if chart_type=='Density Contour Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
 
     if chart_type=='Density Heatmap':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
 
 @app.callback(
     Output(component_id='data-store', component_property='data'),
@@ -153,11 +155,12 @@ def generate_options(data_dict):
     Input(component_id='barmodex', component_property='value'),
     Input(component_id='boxmode', component_property='value'),
     Input(component_id='violinmode', component_property='value'),
+    Input(component_id='violinmode', component_property='value')
 )
 def create_graph( json_data, xaxis, yaxis,
                         color, size, symbol, hover_name,text, title, chart_type, bins,
                   marginx, marginy, facet_row, facet_column, logx, logy, theme, barmode,
-                  boxmode,violinmode):
+                  boxmode,violinmode,linegroup):
     log_dict = dict()
     log_dict['True'] = True
     log_dict['False'] = False
@@ -166,6 +169,21 @@ def create_graph( json_data, xaxis, yaxis,
     # plot = go.Figure()
 
     plot = None
+
+    if chart_type == 'Lineplot':
+        plot = px.line(data_frame=df,
+                       x=xaxis,
+                       y=yaxis,
+                       color=color,
+                       hover_name=hover_name,
+                       text=text,
+                       title=title,
+                       facet_row=facet_row,
+                       facet_col=facet_column,
+                       log_x=log_dict[logx],
+                       log_y=log_dict[logy],
+                       template=theme,
+                       line_group=linegroup)
 
     if chart_type=='Scatterplot':
 
