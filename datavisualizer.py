@@ -41,30 +41,32 @@ def spinners(data):
     Output(component_id='boxmode-html', component_property='style'),
     Output(component_id='violinmode-html', component_property='style'),
     Output(component_id='linegroup-html', component_property='style'),
+    Output(component_id='box_boolean-html', component_property='style'),
+    Output(component_id='show_points-html', component_property='style'),
     Input('chart-type-dropdown', component_property='value')
 )
 def hide_options(chart_type):
     if chart_type == 'Scatterplot':
-        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+        return {'display':'none'},{'display':'block'},{'display':'block'}, {'display': 'none'},{'display':'block'},{'display':'block'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
     if chart_type == 'Lineplot':
-        return {'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display':'block'}
+        return {'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'}
     if chart_type=='Histogram':
-        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+        return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display':'none'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
     if chart_type=='Bar Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'block'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
     if chart_type=='Boxplot':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'block'}, {'display': 'none'},{'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'block'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
     if chart_type=='Violinplot':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'block'},{'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'none'},{'display':'none'},{'display':'none'}, {'display': 'none'}, {'display': 'block'},{'display': 'none'}, {'display': 'block'}, {'display': 'block'}
 
     if chart_type=='Density Contour Charts':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
     if chart_type=='Density Heatmap':
-        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}
+        return {'display': 'none'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'},{'display':'block'},{'display':'none'},{'display':'block'}, {'display': 'none'}, {'display': 'none'},{'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
 @app.callback(
     Output(component_id='data-store', component_property='data'),
@@ -157,15 +159,26 @@ def generate_options(data_dict):
     Input(component_id='barmodex', component_property='value'),
     Input(component_id='boxmode', component_property='value'),
     Input(component_id='violinmode', component_property='value'),
-    Input(component_id='violinmode', component_property='value')
+    Input(component_id='linegroup-axis', component_property='value'),
+    Input(component_id='box_boolean', component_property='value'),
+    Input(component_id='show_points', component_property='value'),
 )
 def create_graph( json_data, xaxis, yaxis,
                         color, size, symbol, hover_name,text, title, chart_type, bins,
                   marginx, marginy, facet_row, facet_column, logx, logy, theme, barmode,
-                  boxmode,violinmode,linegroup):
+                  boxmode,violinmode,linegroup, box_boolean, show_points):
     log_dict = dict()
     log_dict['True'] = True
     log_dict['False'] = False
+
+    box_dict = dict()
+    box_dict['True'] = True
+    box_dict['False'] = False
+
+    show_point_dict = dict()
+    show_point_dict['False'] = False
+    show_point_dict['all'] = 'all'
+    show_point_dict['outliers'] = 'outliers'
 
     df = pd.read_json(json_data, orient='split')
     # plot = go.Figure()
@@ -287,7 +300,9 @@ def create_graph( json_data, xaxis, yaxis,
                          log_y=log_dict[logy],
                          template=theme,
                          title=title,
-                         violinmode=violinmode)
+                         violinmode=violinmode,
+                         box=box_dict[box_boolean],
+                         points=show_point_dict[show_points])
 
     return plot
 

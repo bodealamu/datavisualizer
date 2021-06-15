@@ -4,7 +4,8 @@ import dash_bootstrap_components as dbc
 from widgets import (title_of_chart_widget,xaxis_widget,yaxis_widget,size_widget,color_widget,text_widget,
                      hover_text_widget,symbol_widget,bins_widget,barmode_widget, boxmode_widget,
                      violinmode_widget,marginalx_widget,marginaly_widget, facetrow_widget,
-                     facetcol_widget,logx_widget, logy_widget,linegroup_widget)
+                     facetcol_widget,logx_widget, logy_widget,linegroup_widget, showpoints_widget,
+                     box_boolean_widget)
 
 tabs = html.Div(
     [
@@ -31,7 +32,9 @@ tab1_content = dbc.Row(
                                                        hover_text_widget,symbol_widget,bins_widget,barmode_widget,
                                                        boxmode_widget, violinmode_widget,marginalx_widget,
                                                        marginaly_widget, facetrow_widget, facetcol_widget,
-                                                       logx_widget, logy_widget,linegroup_widget
+                                                       logx_widget, logy_widget,linegroup_widget,showpoints_widget,
+                                                       box_boolean_widget,
+
                                                        ]),width=3,),
                             dbc.Col(width=9,
                                     children=[dbc.Card(dcc.Graph(id='graph-area'),body=True),dbc.Card(html.Div())]),

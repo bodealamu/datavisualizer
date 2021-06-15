@@ -170,3 +170,20 @@ facetcol_widget = dbc.FormGroup(html.Div(id='facetcolumn-html', children=[dbc.La
 linegroup_widget =dbc.FormGroup(html.Div(id='linegroup-html',children=[dbc.Label('Line group'),
                                                                dcc.Dropdown(id='linegroup-axis',
                                                                             placeholder='Select Column for Line group',)]))
+
+box_boolean_widget = dbc.FormGroup(html.Div(id='box_boolean-html',
+                                            children=[dbc.Label('Show Box (Optional)'),
+                                                      dcc.RadioItems(options=[{'label':'True', 'value':'True'},
+                                                                              {'label':'False', 'value':'False'}],
+                                                                     id='box_boolean',value='False')]))
+
+showpoints_widget = dbc.FormGroup(html.Div(id='show_points-html', children=[dbc.Label('Show points (Optional)'),
+                                                                            dcc.Dropdown(
+                                                                                options=[{'label': 'all', 'value': 'all'},
+                                                                                      {'label': 'outliers', 'value': 'outliers'},
+                                                                                      {'label': 'False',
+                                                                                       'value': 'False'}],
+                                                                                id='show_points',
+                                                                                value='False',
+                                                                                placeholder='Show points', )]))
+
