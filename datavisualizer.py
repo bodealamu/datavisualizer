@@ -130,7 +130,8 @@ def generate_options(data_dict):
     df = pd.DataFrame(data_dict)
     column_list = [{'label': col, 'value': col} for col in df.columns]
 
-    return column_list,column_list,column_list,column_list, column_list,column_list, column_list,column_list, column_list
+    return column_list,column_list,column_list,column_list, column_list,column_list, \
+           column_list,column_list, column_list, column_list
 
 
 @app.callback(
